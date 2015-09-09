@@ -1,0 +1,533 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.14
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Sep 09, 2015 at 07:28 PM
+-- Server version: 5.6.26
+-- PHP Version: 5.6.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `agms`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accessinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `accessinfo` (
+  `accessLevel` tinyint(4) NOT NULL,
+  `accessLevelName` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `accessinfo`
+--
+
+INSERT INTO `accessinfo` (`accessLevel`, `accessLevelName`) VALUES
+(1, 'Owner'),
+(2, 'Staff Admin'),
+(3, 'Staff Trainer'),
+(4, 'Member');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `account`
+--
+
+CREATE TABLE IF NOT EXISTS `account` (
+  `userNo` int(11) NOT NULL,
+  `userID` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `accessLevel` tinyint(4) NOT NULL,
+  `userStatusID` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `account`
+--
+
+INSERT INTO `account` (`userNo`, `userID`, `password`, `accessLevel`, `userStatusID`) VALUES
+(1, 'testMember01', 'Password123', 4, '1'),
+(2, 'testStaffTrainer01', 'Password123', 3, '1'),
+(3, 'testStaff01', 'Password123', 2, '1'),
+(4, 'testOwner01', 'Password123', 1, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bodytypeinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `bodytypeinfo` (
+  `bodyTypeID` int(11) NOT NULL,
+  `bodyTypeName` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bodytypeinfo`
+--
+
+INSERT INTO `bodytypeinfo` (`bodyTypeID`, `bodyTypeName`) VALUES
+(1, 'Lean'),
+(2, 'Normal'),
+(3, 'Muscular'),
+(4, 'Latent Obese');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `courseinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `courseinfo` (
+  `courseID` int(11) NOT NULL,
+  `courseName` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `courseinfo`
+--
+
+INSERT INTO `courseinfo` (`courseID`, `courseName`) VALUES
+(1, 'Computer Science'),
+(2, 'Information Technology');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fitnesscoachinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `fitnesscoachinfo` (
+  `fitnessCoachID` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `otherName` varchar(50) DEFAULT NULL,
+  `middleInitial` char(5) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fitnesscoachinfo`
+--
+
+INSERT INTO `fitnesscoachinfo` (`fitnessCoachID`, `firstName`, `lastName`, `otherName`, `middleInitial`) VALUES
+(1, 'Staff02', 'Trainer', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fitnessprograminfo`
+--
+
+CREATE TABLE IF NOT EXISTS `fitnessprograminfo` (
+  `fitnessProgramID` int(11) NOT NULL,
+  `fitnessProgramName` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `fitnessprograminfo`
+--
+
+INSERT INTO `fitnessprograminfo` (`fitnessProgramID`, `fitnessProgramName`) VALUES
+(1, 'Weight Loss'),
+(2, 'Weight Gain');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logbook`
+--
+
+CREATE TABLE IF NOT EXISTS `logbook` (
+  `logbookID` int(11) NOT NULL,
+  `userNo` int(11) NOT NULL,
+  `timeIn` datetime NOT NULL,
+  `timeOut` datetime DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logbook`
+--
+
+INSERT INTO `logbook` (`logbookID`, `userNo`, `timeIn`, `timeOut`) VALUES
+(1, 1, '2015-09-09 09:05:07', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `memberinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `memberinfo` (
+  `userNo` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `middleInitial` char(5) DEFAULT NULL,
+  `otherName` varchar(50) DEFAULT NULL,
+  `membershipNo` int(11) NOT NULL,
+  `gender` char(6) NOT NULL,
+  `birthday` date NOT NULL,
+  `height` float NOT NULL,
+  `weight` float NOT NULL,
+  `bmi` float DEFAULT NULL,
+  `bodyTypeID` int(11) NOT NULL,
+  `fitnessProgramID` int(11) NOT NULL,
+  `mobileNo` varchar(20) DEFAULT NULL,
+  `emailAddress` varchar(50) DEFAULT NULL,
+  `homeAddress` varchar(50) DEFAULT NULL,
+  `officeName` varchar(50) DEFAULT NULL,
+  `schoolID` int(11) DEFAULT NULL,
+  `courseID` int(11) DEFAULT NULL,
+  `fitnessCoachID` int(11) NOT NULL,
+  `riskFactorID` int(11) NOT NULL,
+  `picture` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `memberinfo`
+--
+
+INSERT INTO `memberinfo` (`userNo`, `firstName`, `lastName`, `middleInitial`, `otherName`, `membershipNo`, `gender`, `birthday`, `height`, `weight`, `bmi`, `bodyTypeID`, `fitnessProgramID`, `mobileNo`, `emailAddress`, `homeAddress`, `officeName`, `schoolID`, `courseID`, `fitnessCoachID`, `riskFactorID`, `picture`) VALUES
+(1, 'Test01', 'Member', NULL, NULL, 1, 'Female', '1995-07-22', 170, 70, NULL, 1, 1, NULL, 'test@gmail.com', NULL, NULL, 1, 1, 1, 1, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `membershipinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `membershipinfo` (
+  `membershipNo` int(11) NOT NULL,
+  `userNo` int(11) NOT NULL,
+  `membershipStatusID` int(11) NOT NULL,
+  `membershipLastRenewal` date NOT NULL,
+  `membershipExpiration` date NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `membershipinfo`
+--
+
+INSERT INTO `membershipinfo` (`membershipNo`, `userNo`, `membershipStatusID`, `membershipLastRenewal`, `membershipExpiration`) VALUES
+(1, 1, 1, '2015-09-10', '2015-10-10');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `membershipstatusinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `membershipstatusinfo` (
+  `membershipStatusID` int(11) NOT NULL,
+  `membershipStatusName` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `membershipstatusinfo`
+--
+
+INSERT INTO `membershipstatusinfo` (`membershipStatusID`, `membershipStatusName`) VALUES
+(1, 'Paid'),
+(2, 'Expired');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ownerinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `ownerinfo` (
+  `userNo` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `middleInitial` char(5) DEFAULT NULL,
+  `otherName` varchar(50) DEFAULT NULL,
+  `gender` char(6) NOT NULL,
+  `birthday` date NOT NULL,
+  `mobileNo` varchar(20) NOT NULL,
+  `homeAddress` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ownerinfo`
+--
+
+INSERT INTO `ownerinfo` (`userNo`, `firstName`, `lastName`, `middleInitial`, `otherName`, `gender`, `birthday`, `mobileNo`, `homeAddress`) VALUES
+(4, 'Test', 'Er', 'C', NULL, 'Male', '1990-01-09', '09055555555', 'Caloocan City');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `riskfactorinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `riskfactorinfo` (
+  `riskFactorID` int(11) NOT NULL,
+  `riskFactorName` varchar(50) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `riskfactorinfo`
+--
+
+INSERT INTO `riskfactorinfo` (`riskFactorID`, `riskFactorName`) VALUES
+(1, 'Smoking'),
+(2, 'Diabetic');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schoolinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `schoolinfo` (
+  `schoolID` int(11) NOT NULL,
+  `schoolName` varchar(50) NOT NULL,
+  `schoolAddress` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `schoolinfo`
+--
+
+INSERT INTO `schoolinfo` (`schoolID`, `schoolName`, `schoolAddress`) VALUES
+(1, 'University of Santo Tomas', NULL),
+(2, 'Far Eastern University', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staffinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `staffinfo` (
+  `userNo` int(11) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `middleInitial` char(5) DEFAULT NULL,
+  `otherName` varchar(50) DEFAULT NULL,
+  `gender` char(6) NOT NULL,
+  `birthday` date NOT NULL,
+  `height` float NOT NULL,
+  `weight` float NOT NULL,
+  `bmi` float DEFAULT NULL,
+  `bodyTypeID` int(11) NOT NULL,
+  `mobileNo` varchar(20) NOT NULL,
+  `emailAddress` varchar(50) NOT NULL,
+  `homeAddress` varchar(50) NOT NULL,
+  `picture` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `staffinfo`
+--
+
+INSERT INTO `staffinfo` (`userNo`, `firstName`, `lastName`, `middleInitial`, `otherName`, `gender`, `birthday`, `height`, `weight`, `bmi`, `bodyTypeID`, `mobileNo`, `emailAddress`, `homeAddress`, `picture`) VALUES
+(2, 'Staff02', 'Trainer', NULL, NULL, 'Male', '1990-07-20', 180, 125.5, NULL, 1, '09077777777', 'test2@gmail.com', 'Antipolo City', 'test2.png'),
+(3, 'Staff01', 'Admin', NULL, NULL, 'Female', '1989-08-01', 160.2, 125, NULL, 2, '09066666666', 'test@yahoo.com', 'Antipolo City', 'test.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `userstatus`
+--
+
+CREATE TABLE IF NOT EXISTS `userstatus` (
+  `userStatusID` int(11) NOT NULL,
+  `userStatusName` varchar(20) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `userstatus`
+--
+
+INSERT INTO `userstatus` (`userStatusID`, `userStatusName`) VALUES
+(1, 'Active'),
+(2, 'Inactive');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `accessinfo`
+--
+ALTER TABLE `accessinfo`
+  ADD PRIMARY KEY (`accessLevel`);
+
+--
+-- Indexes for table `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`userNo`),
+  ADD UNIQUE KEY `userID` (`userNo`),
+  ADD UNIQUE KEY `userID_2` (`userID`);
+
+--
+-- Indexes for table `bodytypeinfo`
+--
+ALTER TABLE `bodytypeinfo`
+  ADD PRIMARY KEY (`bodyTypeID`),
+  ADD UNIQUE KEY `bodyTypeID` (`bodyTypeID`);
+
+--
+-- Indexes for table `courseinfo`
+--
+ALTER TABLE `courseinfo`
+  ADD PRIMARY KEY (`courseID`);
+
+--
+-- Indexes for table `fitnesscoachinfo`
+--
+ALTER TABLE `fitnesscoachinfo`
+  ADD PRIMARY KEY (`fitnessCoachID`),
+  ADD UNIQUE KEY `fitnessCoachID` (`fitnessCoachID`);
+
+--
+-- Indexes for table `fitnessprograminfo`
+--
+ALTER TABLE `fitnessprograminfo`
+  ADD PRIMARY KEY (`fitnessProgramID`),
+  ADD UNIQUE KEY `fitnessProgramID` (`fitnessProgramID`);
+
+--
+-- Indexes for table `logbook`
+--
+ALTER TABLE `logbook`
+  ADD PRIMARY KEY (`logbookID`),
+  ADD UNIQUE KEY `logbookID` (`logbookID`),
+  ADD UNIQUE KEY `userNo_2` (`userNo`);
+
+--
+-- Indexes for table `memberinfo`
+--
+ALTER TABLE `memberinfo`
+  ADD PRIMARY KEY (`userNo`),
+  ADD UNIQUE KEY `userNo` (`userNo`);
+
+--
+-- Indexes for table `membershipinfo`
+--
+ALTER TABLE `membershipinfo`
+  ADD PRIMARY KEY (`membershipNo`),
+  ADD UNIQUE KEY `membershipNo` (`membershipNo`),
+  ADD UNIQUE KEY `userNo` (`userNo`);
+
+--
+-- Indexes for table `membershipstatusinfo`
+--
+ALTER TABLE `membershipstatusinfo`
+  ADD PRIMARY KEY (`membershipStatusID`);
+
+--
+-- Indexes for table `ownerinfo`
+--
+ALTER TABLE `ownerinfo`
+  ADD PRIMARY KEY (`userNo`),
+  ADD UNIQUE KEY `userNo` (`userNo`);
+
+--
+-- Indexes for table `riskfactorinfo`
+--
+ALTER TABLE `riskfactorinfo`
+  ADD PRIMARY KEY (`riskFactorID`);
+
+--
+-- Indexes for table `schoolinfo`
+--
+ALTER TABLE `schoolinfo`
+  ADD PRIMARY KEY (`schoolID`);
+
+--
+-- Indexes for table `staffinfo`
+--
+ALTER TABLE `staffinfo`
+  ADD PRIMARY KEY (`userNo`),
+  ADD UNIQUE KEY `userNo` (`userNo`);
+
+--
+-- Indexes for table `userstatus`
+--
+ALTER TABLE `userstatus`
+  ADD PRIMARY KEY (`userStatusID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `accessinfo`
+--
+ALTER TABLE `accessinfo`
+  MODIFY `accessLevel` tinyint(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `account`
+--
+ALTER TABLE `account`
+  MODIFY `userNo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `bodytypeinfo`
+--
+ALTER TABLE `bodytypeinfo`
+  MODIFY `bodyTypeID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `courseinfo`
+--
+ALTER TABLE `courseinfo`
+  MODIFY `courseID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `fitnesscoachinfo`
+--
+ALTER TABLE `fitnesscoachinfo`
+  MODIFY `fitnessCoachID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `fitnessprograminfo`
+--
+ALTER TABLE `fitnessprograminfo`
+  MODIFY `fitnessProgramID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `logbook`
+--
+ALTER TABLE `logbook`
+  MODIFY `logbookID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `membershipinfo`
+--
+ALTER TABLE `membershipinfo`
+  MODIFY `membershipNo` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `membershipstatusinfo`
+--
+ALTER TABLE `membershipstatusinfo`
+  MODIFY `membershipStatusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `riskfactorinfo`
+--
+ALTER TABLE `riskfactorinfo`
+  MODIFY `riskFactorID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `schoolinfo`
+--
+ALTER TABLE `schoolinfo`
+  MODIFY `schoolID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `userstatus`
+--
+ALTER TABLE `userstatus`
+  MODIFY `userStatusID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
